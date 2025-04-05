@@ -4,7 +4,7 @@ import Menu.DoctorMenu;
 import Menu.VisitMenu;
 import Menu.ImportExportMenu;
 
-public class Menu {
+public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
