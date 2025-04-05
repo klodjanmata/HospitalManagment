@@ -60,4 +60,6 @@ public class DoctorRepository {
                 return session.createQuery(cq).getResultList();
             }
         }
+
+        public void create(){}
 }
