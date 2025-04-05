@@ -41,7 +41,7 @@ public class PatientRepository {
         }
     }
 
-    public Patient getMovieById(int id) {
+    public Patient getPatientById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.find(Patient.class, id);
         }
