@@ -67,7 +67,5 @@ public List<Visit> findByDoctorId(int doctorId){
             e.printStackTrace();
         }
     }
-
-
-
+    
 }

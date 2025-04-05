@@ -61,5 +61,16 @@ public class DoctorRepository {
             }
         }
 
-        public void create(){}
+    public List<String> findAllSpecialties() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<String> cq = cb.createQuery(String.class);
+            Root<Doctor> root = cq.from(Doctor.class);
+            cq.select(root.get("specialty")).distinct(true);
+            return session.createQuery(cq).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

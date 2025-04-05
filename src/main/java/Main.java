@@ -22,7 +22,7 @@ public class Main {
 
             switch (input) {
                 case "1":
-                    PatientMenu.start(scanner);
+                  //  PatientMenu.start(scanner);
                     break;
                 case "2":
                     DoctorMenu.start(scanner);
@@ -31,7 +31,7 @@ public class Main {
                     VisitMenu.start(scanner);
                     break;
                 case "4":
-                    ImportExportMenu.start(scanner);
+                   // ImportExportMenu.start(scanner);
                     break;
                 case "0":
                     System.out.println("Exiting... Goodbye!");
