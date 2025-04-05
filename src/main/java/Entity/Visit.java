@@ -1,26 +1,51 @@
-//package Entity;
-//
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.Table;
-//import lombok.AllArgsConstructor;
-//import lombok.Getter;
-//import lombok.NoArgsConstructor;
-//import lombok.Setter;
-//
-//@Entity
-//@Table(name="visits")
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Getter
-//@Setter
-//
-//public class Visit {
-//
-//    @Id
-//    @GeneratedValue
-//
-//
-//
-//}
+package Entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Date;
+@Entity
+@Table(name = "visits")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class Visit {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    // Many visits can be associated with one patient
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    // Many visits can be associated with one doctor
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @Column(name = "visit_date")
+    @Temporal(TemporalType.DATE)
+    private Date visitDate;
+
+    @Column(name = "diagnosis")
+    private String diagnosis;
+
+    @Column(name = "prescription")
+    private String prescription;
+
+    @Override
+    public String toString() {
+        return "Visit{" +
+                "id=" + id +
+                ", patient=" + patient.getName() +
+                ", doctor=" + doctor.getName() +
+                ", visitDate=" + visitDate +
+                ", diagnosis='" + diagnosis + '\'' +
+                ", prescription='" + prescription + '\'' +
+                '}';
+    }
+}
+
