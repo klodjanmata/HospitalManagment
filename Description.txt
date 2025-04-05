@@ -1,0 +1,38 @@
+🏥 Hospital Management System – Project Requirements
+📄 Short Description
+A console-based Java application for managing patient records, doctor information, and medical visit reports in a small clinic or hospital environment. It stores data in a relational database and includes exporting/importing data with CSV files.
+________________________________________
+🎯 Core Features:
+•	Patient Management
+o	Add, update, delete patient details.
+o	View patient list and details.
+•	Doctor Management
+o	Add, update, delete doctor details.
+o	View doctor list and specialties.
+•	Visit Management (Medical Reports)
+o	Record patient visits (patient, doctor, diagnosis, date).
+o	View visit history (per patient or doctor).
+o	Export visit history to CSV.
+•	Import/Export:
+o	Export patient and doctor data to CSV.
+o	Import patient and doctor details from CSV.
+________________________________________
+📌 Main Entities (Database Tables):
+✅ Patient
+•	id (int, PK)
+•	name (String)
+•	dob (Date)
+•	phone (String)
+•	address (String)
+✅ Doctor
+•	id (int, PK)
+•	name (String)
+•	specialty (String)
+•	phone (String)
+✅ Visit
+•	id (int, PK)
+•	patient_id (int, FK → Patient)
+•	doctor_id (int, FK → Doctor)
+•	visit_date (Date)
+•	diagnosis (String)
+•	prescription (String, optional)
