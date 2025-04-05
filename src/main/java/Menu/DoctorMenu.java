@@ -56,7 +56,9 @@ public class DoctorMenu {
             String specialty = scanner.nextLine();
 
             System.out.print("Enter doctor contact information: ");
+            System.out.println("Enter the phone number:");
             String phone = scanner.nextLine();
+            System.out.println("Enter the email:");
             String email = scanner.nextLine();
 
             Doctor doctor = new Doctor();
