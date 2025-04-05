@@ -57,11 +57,13 @@ public class DoctorMenu {
 
             System.out.print("Enter doctor contact information: ");
             String phone = scanner.nextLine();
+            String email = scanner.nextLine();
 
             Doctor doctor = new Doctor();
             doctor.setName(name);
             doctor.setSpeciality(specialty);
             doctor.setPhone(phone);
+            doctor.setEmail(email);
 
             doctorRepo.save(doctor);
             System.out.println("Doctor added successfully.");
@@ -96,8 +98,10 @@ public class DoctorMenu {
 
             System.out.print("Enter new contact information (leave blank to keep current): ");
             String phone = scanner.nextLine();
-            if (!phone.isEmpty()) {
+            String email = scanner.nextLine();
+            if (!phone.isEmpty() || !email.isEmpty()) {
                 doctor.setPhone(phone);
+                doctor.setEmail(email);
             }
 
             doctorRepo.save(doctor);
