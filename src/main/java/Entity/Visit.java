@@ -16,12 +16,11 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // Many visits can be associated with one patient
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private Patient patient;
 
-    // Many visits can be associated with one doctor
+
     @ManyToOne
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
