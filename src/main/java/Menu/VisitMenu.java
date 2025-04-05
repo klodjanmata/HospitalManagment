@@ -76,7 +76,7 @@ public class VisitMenu {
             System.out.print("Enter prescription (optional): ");
             String prescription = scanner.nextLine();
 
-            Date visitDate = new Date(); // current date
+            Date visitDate = new Date();
 
             Visit visit = new Visit();
             visit.setPatient(patient);
