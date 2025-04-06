@@ -22,24 +22,25 @@ public class Doctor {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "specialization")
-    @Enumerated(EnumType.STRING)
-    private Specialization speciality;
-
     @Column(name = "phoneNumber")
     private String phone;
 
     @Column(name = "email")
     private String email;
 
+    @Column(name = "specialization")
+    @Enumerated(EnumType.STRING)
+    private Specialization speciality;
+
     @Override
     public String toString() {
-        return
-                " " + id + '\t' +
-                        " " + name + '\t' +
-                        " " + surname + '\t' +
-                        " " + speciality + '\t' +
-                        " " + phone + '\t' +
-                        " " + email;
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", speciality=" + speciality +
+                '}';
     }
 }
