@@ -1,22 +1,16 @@
 package Entity;
 
 public enum Specialization {
-    AllergyAndImmunology,
-    Cardiology,
-    Dermatology,
-    EmergencyMedicine,
-    FamilyMedicine,
-    Pediatrics;
+    CARDIOLOGY,
+    NEUROLOGY,
+    DERMATOLOGY,
+    PEDIATRICS,
+    ORTHOPEDICS,
+    FAMILYMEDICINE;
 
-    public static void printChoseSpecialization(){
-        System.out.println(
-                "1 - Allergy And Immunology\n" +
-                        "2 - Cardiology\n" +
-                        "3 - Dermatology\n" +
-                        "4 - EmergencyMedicine\n" +
-                        "5 - FamilyMedicine\n" +
-                        "6 - Pediatrics");
+    public static void printChoseSpecialization() {
+        for (int i = 0; i < values().length; i++) {
+            System.out.println((i + 1) + ". " + values()[i]);
+        }
     }
-
-
 }

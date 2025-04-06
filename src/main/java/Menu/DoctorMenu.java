@@ -50,27 +50,27 @@ public class DoctorMenu {
 
     private static void addDoctor(Scanner scanner) {
         try {
+            Doctor doctor = new Doctor();
             System.out.print("Enter doctor name: ");
             String name = scanner.nextLine();
+            doctor.setName(name);
+
             System.out.println("Enter doctor surname: ");
             String surname = scanner.nextLine();
-            Doctor doctor = new Doctor();
-            System.out.print("Enter doctor specialty: ");
-            Specialization.printChoseSpecialization();
-            //  String specialty = scanner.nextLine();
-            int choice = scanner.nextInt();
-            doctor.setSpeciality(String.valueOf(Specialization.values()[choice-1]));
+            doctor.setSurname(surname);
 
-            System.out.println("Enter doctor contact information: ");
+            System.out.print("Enter doctor specialty: Choose a number from 1 to 6:\n");
+            Specialization.printChoseSpecialization();
+            int choice = scanner.nextInt();
+            doctor.setSpeciality(Specialization.values()[choice - 1]);
+
+
             System.out.println("Enter the phone number:");
             String phone = scanner.nextLine();
+            doctor.setPhone(phone);
+
             System.out.println("Enter the email:");
             String email = scanner.nextLine();
-
-
-            doctor.setName(name);
-            doctor.setSurname(surname);
-            doctor.setPhone(phone);
             doctor.setEmail(email);
 
             doctorRepo.save(doctor);
@@ -104,11 +104,10 @@ public class DoctorMenu {
                 doctor.setSurname(surname);
             }
 
-            System.out.print("Enter new specialty (leave blank to keep current): ");
+            System.out.print("Enter new specialty,choose a number from 1 to 6: ");
             Specialization.printChoseSpecialization();
-
             int choice = scanner.nextInt();
-            doctor.setSpeciality(String.valueOf(Specialization.values()[choice-1]));
+            doctor.setSpeciality(Specialization.values()[choice - 1]);
 
 
             System.out.print("Enter new contact information (leave blank to keep current): ");
