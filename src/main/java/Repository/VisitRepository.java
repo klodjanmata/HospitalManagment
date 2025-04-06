@@ -23,22 +23,24 @@ public void save(Visit visit) {
     }
 }
 
-public List<Visit> findByPatientId(int patientId){
-    try(Session session = HibernateUtil.getSessionFactory().openSession()) {
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<Visit> cq = cb.createQuery(Visit.class);
-        Root<Visit> root = cq.from(Visit.class);
-        cq.select(root).where(cb.equal(root.get("patientId"), patientId));
+    public List<Visit> findByPatientId(int patientId) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Visit> cq = cb.createQuery(Visit.class);
+            Root<Visit> root = cq.from(Visit.class);
+            cq.select(root).where(cb.equal(root.get("patient").get("id"), patientId));
 
-    return session.createQuery(cq).getResultList();}
-}
+            return session.createQuery(cq).getResultList();
+        }
+    }
+
 
 public List<Visit> findByDoctorId(int doctorId){
     try(Session session = HibernateUtil.getSessionFactory().openSession()) {
         CriteriaBuilder cb = session.getCriteriaBuilder();
         CriteriaQuery<Visit> cq = cb.createQuery(Visit.class);
         Root<Visit> root = cq.from(Visit.class);
-        cq.select(root).where(cb.equal(root.get("doctorId"), doctorId));
+        cq.select(root).where(cb.equal(root.get("doctor").get("id"), doctorId));
 
         return session.createQuery(cq).getResultList();
     }
