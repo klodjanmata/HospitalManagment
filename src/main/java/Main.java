@@ -2,7 +2,6 @@ import java.util.Scanner;
 import Menu.PatientMenu;
 import Menu.DoctorMenu;
 import Menu.VisitMenu;
-import Menu.ImportExportMenu;
 
 public class Main {
 
