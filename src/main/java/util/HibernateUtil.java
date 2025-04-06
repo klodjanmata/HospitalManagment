@@ -3,6 +3,12 @@ package util;
 import Entity.Doctor;
 import Entity.Patient;
 import Entity.Visit;
+import Menu.DoctorMenu;
+import Menu.PatientMenu;
+import Menu.VisitMenu;
+import Repository.DoctorRepository;
+import Repository.PatientRepository;
+import Repository.VisitRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -16,6 +22,13 @@ public class HibernateUtil {
                     .addAnnotatedClass(Doctor.class)
                     .addAnnotatedClass(Patient.class)
                     .addAnnotatedClass(Visit.class)
+                    .addAnnotatedClass(DoctorMenu.class)
+                    .addAnnotatedClass(VisitMenu.class)
+                    .addAnnotatedClass(PatientMenu.class)
+                    .addAnnotatedClass(DoctorRepository.class)
+                    .addAnnotatedClass(VisitRepository.class)
+                    .addAnnotatedClass(PatientRepository.class)
+
 
                     .buildSessionFactory();
         }catch(Exception e){
