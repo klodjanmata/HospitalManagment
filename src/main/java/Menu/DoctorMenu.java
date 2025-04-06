@@ -157,7 +157,7 @@ public class DoctorMenu {
 
     private static void viewDoctorSpecialties(Scanner scanner) {
         System.out.println("Doctor Specialties:");
-        List<String> specialties = doctorRepo.findAllSpecialties();
+        List<Specialization> specialties = doctorRepo.findAllSpecialties();
 
         if (specialties.isEmpty()) {
             System.out.println("No specialties found.");

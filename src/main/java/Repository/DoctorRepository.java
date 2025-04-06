@@ -7,6 +7,7 @@ import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
+import Entity.Specialization;
 
 
 import java.util.List;
@@ -61,16 +62,17 @@ public class DoctorRepository {
             }
         }
 
-    public List<String> findAllSpecialties() {
+    public List<Specialization> findAllSpecialties() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<String> cq = cb.createQuery(String.class);
+            CriteriaQuery<Specialization> cq = cb.createQuery(Specialization.class);
             Root<Doctor> root = cq.from(Doctor.class);
-            cq.select(root.get("specialty")).distinct(true);
+            cq.select(root.get("speciality")).distinct(true);
             return session.createQuery(cq).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
+
 }
