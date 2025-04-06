@@ -14,7 +14,6 @@ public class Main {
             System.out.println("1. Patient Management");
             System.out.println("2. Doctor Management");
             System.out.println("3. Visit Management");
-            System.out.println("4. Import/Export Data");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             String input = scanner.nextLine();
@@ -28,10 +27,6 @@ public class Main {
                     break;
                 case "3":
                     VisitMenu.start(scanner);
-                    break;
-                case "4":
-                   // ImportExportMenu.start(scanner);
-                    System.out.println("This part is related to the importExport menu which is not finished yet ");
                     break;
                 case "0":
                     System.out.println("Exiting... Goodbye!");
