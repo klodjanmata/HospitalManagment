@@ -1,5 +1,6 @@
 package Menu;
 
+import Entity.Specialization;
 import Repository.DoctorRepository;
 import Entity.Doctor;
 import java.util.List;
@@ -51,19 +52,22 @@ public class DoctorMenu {
         try {
             System.out.print("Enter doctor name: ");
             String name = scanner.nextLine();
-
+            Doctor doctor = new Doctor();
             System.out.print("Enter doctor specialty: ");
-            String specialty = scanner.nextLine();
+            Specialization.printChoseSpecialization();
+          //  String specialty = scanner.nextLine();
+            int choice = scanner.nextInt();
+            doctor.setSpeciality(String.valueOf(Specialization.values()[choice-1]));
 
-            System.out.print("Enter doctor contact information: ");
+            System.out.println("Enter doctor contact information: ");
             System.out.println("Enter the phone number:");
             String phone = scanner.nextLine();
             System.out.println("Enter the email:");
             String email = scanner.nextLine();
 
-            Doctor doctor = new Doctor();
+
             doctor.setName(name);
-            doctor.setSpeciality(specialty);
+          //  doctor.setSpeciality(specialty);
             doctor.setPhone(phone);
             doctor.setEmail(email);
 
@@ -93,10 +97,14 @@ public class DoctorMenu {
             }
 
             System.out.print("Enter new specialty (leave blank to keep current): ");
-            String specialty = scanner.nextLine();
-            if (!specialty.isEmpty()) {
-                doctor.setSpeciality(specialty);
-            }
+            Specialization.printChoseSpecialization();
+           // String specialty = scanner.nextLine();
+            int choice = scanner.nextInt();
+            doctor.setSpeciality(String.valueOf(Specialization.values()[choice-1]));
+
+//            if (!specialty.isEmpty()) {
+//                doctor.setSpeciality(specialty);
+//            }
 
             System.out.print("Enter new contact information (leave blank to keep current): ");
             String phone = scanner.nextLine();
