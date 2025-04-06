@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class DoctorMenu {
     private static final DoctorRepository doctorRepo = new DoctorRepository();
-
+    private List<Doctor> doctors;
     public static void start(Scanner scanner) {
         boolean back = false;
 
@@ -55,23 +55,22 @@ public class DoctorMenu {
             String name = scanner.nextLine();
             doctor.setName(name);
 
-            System.out.println("Enter doctor surname: ");
+            System.out.print("Enter doctor surname: ");
             String surname = scanner.nextLine();
             doctor.setSurname(surname);
+
+            System.out.print("Enter the phone number:");
+            String phone = scanner.nextLine();
+            doctor.setPhone(phone);
+
+            System.out.print("Enter the email:");
+            String email = scanner.nextLine();
+            doctor.setEmail(email);
 
             System.out.print("Enter doctor specialty: Choose a number from 1 to 6:\n");
             Specialization.printChoseSpecialization();
             int choice = scanner.nextInt();
             doctor.setSpeciality(Specialization.values()[choice - 1]);
-
-
-            System.out.println("Enter the phone number:");
-            String phone = scanner.nextLine();
-            doctor.setPhone(phone);
-
-            System.out.println("Enter the email:");
-            String email = scanner.nextLine();
-            doctor.setEmail(email);
 
             doctorRepo.save(doctor);
             System.out.println("Doctor added successfully.");
@@ -163,6 +162,13 @@ public class DoctorMenu {
             System.out.println("No specialties found.");
         } else {
             specialties.forEach(System.out::println);
+        }
+    }
+
+    public void printAllDoctors(){
+        System.out.println("ID\tName\tSurname\tSpeciality\tPhone\tEmail");
+        if ( doctors != null) {
+            doctors.forEach(System.out::println);
         }
     }
 }

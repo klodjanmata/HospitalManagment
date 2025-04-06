@@ -22,15 +22,15 @@ public class Doctor {
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "specialization")
-    @Enumerated(EnumType.STRING)
-    private Specialization speciality;
-
     @Column(name = "phoneNumber")
     private String phone;
 
     @Column(name = "email")
     private String email;
+
+    @Column(name = "specialization")
+    @Enumerated(EnumType.STRING)
+    private Specialization speciality;
 
     @Override
     public String toString() {
@@ -38,8 +38,8 @@ public class Doctor {
                 " " + id + '\t' +
                         " " + name + '\t' +
                         " " + surname + '\t' +
-                        " " + speciality + '\t' +
                         " " + phone + '\t' +
-                        " " + email;
+                        " " + email + '\t' +
+                        " " + speciality;
     }
 }
