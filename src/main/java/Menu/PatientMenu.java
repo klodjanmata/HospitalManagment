@@ -2,7 +2,6 @@ package Menu;
 
 import Entity.Patient;
 import Repository.PatientRepository;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -10,6 +9,7 @@ import java.util.Scanner;
 
 public class PatientMenu {
     private static final PatientRepository patientRepo = new PatientRepository();
+    private List<Patient> patients;
 
     public static void start(Scanner scanner) {
         boolean back = false;
@@ -59,8 +59,8 @@ public class PatientMenu {
             String surname = scanner.nextLine();
 
             System.out.print("Enter date of birth (yyyy-MM-dd): ");
-            String dobStr = scanner.nextLine();
-            Date dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dobStr);
+            String dateOfBirthStr = scanner.nextLine();
+            Date dateOfBirth = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirthStr);
 
             System.out.print("Enter phone: ");
             String phone = scanner.nextLine();
@@ -106,9 +106,9 @@ public class PatientMenu {
             if (!surname.isEmpty()) patient.setSurname(surname);
 
             System.out.print("Enter new date of birth (" + patient.getDateOfBirth() + ") [yyyy-MM-dd]: ");
-            String dobStr = scanner.nextLine();
-            if (!dobStr.isEmpty()) {
-                Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(dobStr);
+            String dateOfBirthStr = scanner.nextLine();
+            if (!dateOfBirthStr.isEmpty()) {
+                Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirthStr);
                 patient.setDateOfBirth(dob);
             }
 
@@ -164,4 +164,12 @@ public class PatientMenu {
             System.out.println(patient);
         }
     }
-}
+
+
+    public void printAllPatient () {
+            System.out.println("ID\tName\tSurname\tDateOfBirth\t\tPhone\tAddress\tEmail");
+            if (patients != null) {
+                patients.forEach(System.out::println);
+            }
+        }
+    }
