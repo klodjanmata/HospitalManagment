@@ -52,17 +52,21 @@ public class DoctorMenu {
             System.out.print("Enter doctor name: ");
             String name = scanner.nextLine();
 
+            System.out.println("Enter doctor surname: ");
+            String surname = scanner.nextLine();
+
             System.out.print("Enter doctor specialty: ");
             String specialty = scanner.nextLine();
 
-            System.out.print("Enter doctor contact information: ");
             System.out.println("Enter the phone number:");
             String phone = scanner.nextLine();
+
             System.out.println("Enter the email:");
             String email = scanner.nextLine();
 
             Doctor doctor = new Doctor();
             doctor.setName(name);
+            doctor.setSurname(surname);
             doctor.setSpeciality(specialty);
             doctor.setPhone(phone);
             doctor.setEmail(email);
