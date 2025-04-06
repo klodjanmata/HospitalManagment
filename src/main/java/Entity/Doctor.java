@@ -20,7 +20,7 @@ public class Doctor {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Enumerated(EnumType.STRING)
+    //@Enumerated(EnumType.STRING)
     @Column(name = "Specialization")
     private String speciality;
     @Column(name = "phoneNumber")

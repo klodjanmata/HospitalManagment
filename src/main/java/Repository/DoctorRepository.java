@@ -16,7 +16,7 @@ public class DoctorRepository {
         public void save(Doctor doctor){
             try(Session session = HibernateUtil.getSessionFactory().openSession()){
                 Transaction transaction = session.beginTransaction();
-                session.persist(doctor);
+                session.save(doctor);
                 transaction.commit();
             } catch (Exception e) {
                 e.printStackTrace();

@@ -1,5 +1,8 @@
 package util;
 
+import Entity.Doctor;
+import Entity.Patient;
+import Entity.Visit;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -10,6 +13,10 @@ public class HibernateUtil {
         try{
             return new Configuration()
                     .configure("hibernate.cfg.xml")
+                    .addAnnotatedClass(Doctor.class)
+                    .addAnnotatedClass(Patient.class)
+                    .addAnnotatedClass(Visit.class)
+
                     .buildSessionFactory();
         }catch(Exception e){
             e.printStackTrace();
