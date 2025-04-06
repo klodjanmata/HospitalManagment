@@ -96,15 +96,18 @@ public class DoctorMenu {
                 doctor.setName(name);
             }
 
+            System.out.println("Enter the surname");
+            String surname = scanner.nextLine();
+            if (!surname.isEmpty()) {
+                doctor.setSurname(surname);
+            }
+
             System.out.print("Enter new specialty (leave blank to keep current): ");
             Specialization.printChoseSpecialization();
-           // String specialty = scanner.nextLine();
+
             int choice = scanner.nextInt();
             doctor.setSpeciality(String.valueOf(Specialization.values()[choice-1]));
 
-//            if (!specialty.isEmpty()) {
-//                doctor.setSpeciality(specialty);
-//            }
 
             System.out.print("Enter new contact information (leave blank to keep current): ");
             String phone = scanner.nextLine();
@@ -114,7 +117,7 @@ public class DoctorMenu {
                 doctor.setEmail(email);
             }
 
-            doctorRepo.save(doctor);
+            doctorRepo.update(doctor);
             System.out.println("Doctor updated successfully.");
         } catch (Exception e) {
             System.out.println("Error updating doctor.");
