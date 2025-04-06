@@ -9,6 +9,7 @@ import java.util.Scanner;
 public class DoctorMenu {
     private static final DoctorRepository doctorRepo = new DoctorRepository();
     private List<Doctor> doctors;
+
     public static void start(Scanner scanner) {
         boolean back = false;
 
