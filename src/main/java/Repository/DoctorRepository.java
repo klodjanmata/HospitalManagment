@@ -38,7 +38,7 @@ public class DoctorRepository {
             try(Session session = HibernateUtil.getSessionFactory().openSession()){
                 Transaction transaction = session.beginTransaction();
                 session.merge(doctor);
-                transaction.commit();
+                transaction.commit() ;
             } catch (Exception e) {
                 e.printStackTrace();
             }
