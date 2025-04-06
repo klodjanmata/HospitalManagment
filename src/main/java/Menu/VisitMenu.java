@@ -73,7 +73,7 @@ public class VisitMenu {
             System.out.print("Enter diagnosis: ");
             String diagnosis = scanner.nextLine();
 
-            System.out.print("Enter prescription (optional): ");
+            System.out.print("Enter prescription: ");
             String prescription = scanner.nextLine();
 
             Date visitDate = new Date();
