@@ -47,27 +47,12 @@ public List<Visit> findByDoctorId(int doctorId){
 }
 
     public void exportVisitsToCSV(List<Visit> visits, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("VisitID,PatientName,DoctorName,Diagnosis,VisitDate\n");
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
-            for (Visit visit : visits) {
-                String line = String.format(
-                        "%d,%s,%s,%s,%s\n",
-                        visit.getId(),
-                        visit.getPatient().getName(),
-                        visit.getDoctor().getName(),
-                        visit.getDiagnosis(),
-                        formatter.format(visit.getVisitDate())
-                );
-                writer.write(line);
-            }
-
-            System.out.println("Visit history exported successfully to " + filePath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
-    
+
+    public Visit getVisitById(int id) {
+    try(Session session = HibernateUtil.getSessionFactory().openSession()) {
+        return session.find(Visit.class, id);
+    }
+    }
 }
