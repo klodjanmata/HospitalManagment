@@ -38,19 +38,19 @@ public class ServiceRepository {
         }
     }
 
-    public void exportServicesToCSV(List<Service> services, String path) {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
-            writer.println("Service ID,Visit ID,Service Name,Price");
-
-            for (Service service : services) {
-                writer.println(service.getId() + "," + service.getVisit().getId() + "," + service.getAnalysisName() + "," + service.getPrice());
-            }
-
-            System.out.println("Services exported successfully to " + path);
-
-        } catch (IOException e) {
-            System.out.println("Error exporting services to CSV.");
-            e.printStackTrace();
-        }
-    }
+//    public void exportServicesToCSV(List<Service> services, String path) {
+//        try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
+//            writer.println("Service ID,Visit ID,Service Name,Price");
+//
+//            for (Service service : services) {
+//                writer.println(service.getId() + "," + service.getVisit().getId() + "," + service.getAnalysisName() + "," + service.getPrice());
+//            }
+//
+//            System.out.println("Services exported successfully to " + path);
+//
+//        } catch (IOException e) {
+//            System.out.println("Error exporting services to CSV.");
+//            e.printStackTrace();
+//        }
+//    }
 }
