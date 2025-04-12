@@ -53,4 +53,10 @@ public class ServiceRepository {
             e.printStackTrace();
         }
     }
+
+    public Service getServiceById(int id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Service.class, id);
+        }
+    }
 }

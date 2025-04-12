@@ -26,20 +26,37 @@ public class Service {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne
+//    @ManyToOne
+//    @JoinColumn(name = "visit_id")
+//        private Visit visit;
+
+    @ManyToOne(fetch = FetchType.EAGER)  // <-- Important
     @JoinColumn(name = "visit_id")
-        private Visit visit;
+    private Visit visit;
+
+
+//    @Override
+//    public String toString() {
+//        return "Service{" +
+//                "id=" + id +
+//                ", analysisName='" + analysisName + '\'' +
+//                ", price=" + price +
+//                ", patient=" + visit.getPatient().getName() +
+//                ", doctor=" + visit.getDoctor().getName() +
+//                ", visitDate=" + visit.getVisitDate() +
+//                '}';
+//    }
 
     @Override
     public String toString() {
+        String patientName = (visit != null && visit.getPatient() != null) ? visit.getPatient().getName() : "N/A";
         return "Service{" +
                 "id=" + id +
                 ", analysisName='" + analysisName + '\'' +
                 ", price=" + price +
-                ", patient=" + visit.getPatient().getName() +
-                ", doctor=" + visit.getDoctor().getName() +
-                ", visitDate=" + visit.getVisitDate() +
+                ", patient=" + patientName +
                 '}';
     }
+
 }
 
