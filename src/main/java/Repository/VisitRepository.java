@@ -78,5 +78,5 @@ public List<Visit> findByDoctorId(int doctorId){
                 return null;
             }
         }
-    
+
 }
