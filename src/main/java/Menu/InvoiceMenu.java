@@ -27,6 +27,7 @@ public class InvoiceMenu {
             System.out.println("1. Create New Invoice");
             System.out.println("2. View All Invoices");
             System.out.println("3. Delete Invoice");
+            System.out.println("4. Export Invoices to CSV file");
             System.out.println("0. Back to Main Menu");
             System.out.print("Your choice: ");
             String choice = scanner.nextLine();
@@ -41,6 +42,8 @@ public class InvoiceMenu {
                 case "3":
                     deleteInvoice(scanner);
                     break;
+                case  "4":
+                    exportInvoiceToCSV(scanner);
                 case "0":
                     back = true;
                     break;
@@ -48,6 +51,41 @@ public class InvoiceMenu {
                     System.out.println("Invalid option. Try again.");
             }
         }
+    }
+
+    private static void exportInvoiceToCSV(Scanner scanner) {
+        System.out.println("Export visit history to CSV:");
+        System.out.println("1. By Patient ID");
+        System.out.println("2. By Doctor ID");
+        System.out.print("Choose an option: ");
+        String option = scanner.nextLine();
+
+        List<Invoice> invoices = null;
+        switch (option) {
+            case "1":
+                System.out.print("Enter patient ID: ");
+                int pid = Integer.parseInt(scanner.nextLine());
+                invoices = invoiceRepo.findByPatientId(pid);
+                break;
+            case "2":
+                System.out.print("Enter doctor ID: ");
+                int did = Integer.parseInt(scanner.nextLine());
+                invoices = invoiceRepo.findByDoctorId(did);
+                break;
+            default:
+                System.out.println("Invalid option.");
+                return;
+        }
+
+        if (invoices == null || invoices.isEmpty()) {
+            System.out.println("No visits found to export.");
+            return;
+        }
+
+        System.out.print("Enter CSV file path (e.g., visits.csv): ");
+        String path = scanner.nextLine();
+
+        invoiceRepo.exportInvoiceToCSV(invoices, path);
     }
 
     private static void createInvoice(Scanner scanner) {

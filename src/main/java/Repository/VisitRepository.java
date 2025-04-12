@@ -1,5 +1,6 @@
 package Repository;
 
+import Entity.Invoice;
 import Entity.Visit;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -78,5 +79,6 @@ public List<Visit> findByDoctorId(int doctorId){
                 return null;
             }
         }
+
 
 }

@@ -49,8 +49,8 @@ public class Invoice {
     public String toString() {
         return "Invoice: " +
                 "id=" + id +
-                ", patient=" + patient +
-                ", visit=" + visit +
+                ", patient=" + patient.getId() +
+                ", visit=" + visit.getId() +
                 ", services=" + services +
                 ", totalPrice=" + totalPrice ;
     }
