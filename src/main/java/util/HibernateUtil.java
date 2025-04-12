@@ -31,7 +31,6 @@ public class HibernateUtil {
                     .addAnnotatedClass(ServiceMenu.class)
                     .addAnnotatedClass(InvoiceRepository.class)
 
-
                     .buildSessionFactory();
         }catch(Exception e){
             e.printStackTrace();
