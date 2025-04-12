@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import Menu.PatientMenu;
 import Menu.DoctorMenu;
+import Menu.ServiceMenu;
 import Menu.VisitMenu;
 
 public class Main {
@@ -14,6 +15,7 @@ public class Main {
             System.out.println("1. Patient Management");
             System.out.println("2. Doctor Management");
             System.out.println("3. Visit Management");
+            System.out.println("4. Service Management");
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             String input = scanner.nextLine();
@@ -27,6 +29,9 @@ public class Main {
                     break;
                 case "3":
                     VisitMenu.start(scanner);
+                    break;
+                case "4":
+                    ServiceMenu.start(scanner);
                     break;
                 case "0":
                     System.out.println("Exiting... Goodbye!");

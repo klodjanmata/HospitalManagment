@@ -7,7 +7,7 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/hospitalManagement</property>
         <property name="connection.username">root</property>
-        <property name="connection.password"></property>
+        <property name="connection.password">root</property>
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">false</property>
         <property name="hbm2ddl.auto">update</property>
@@ -15,15 +15,18 @@
         <mapping class="Entity.Doctor"/>
         <mapping class="Entity.Patient"/>
         <mapping class="Entity.Visit"/>
-        <mapping class="Entity.Doctor"/>
-        <mapping class="Entity.Patient"/>
-        <mapping class="Entity.Specialization"/>
-        <mapping class="Menu.DoctorMenu"/>
-        <mapping class="Menu.PatientMenu"/>
-        <mapping class="Menu.VisitMenu"/>
-        <mapping class="Repository.DoctorRepository"/>
-        <mapping class="Repository.PatientRepository"/>
-        <mapping class="Repository.VisitRepository"/>
+        <mapping class="Entity.Service"/>
+<!--        <mapping class="Entity.Doctor"/>-->
+<!--        <mapping class="Entity.Patient"/>-->
+<!--        <mapping class="Entity.Specialization"/>-->
+<!--        <mapping class="Menu.DoctorMenu"/>-->
+<!--        <mapping class="Menu.PatientMenu"/>-->
+<!--        <mapping class="Menu.VisitMenu"/>-->
+<!--        <mapping class="Entity.ServiceMenu"/>-->
+<!--        <mapping class="Repository.DoctorRepository"/>-->
+<!--        <mapping class="Repository.PatientRepository"/>-->
+<!--        <mapping class="Repository.VisitRepository"/>-->
+<!--        <mapping class="Entity.ServiceRepository"/>-->
 
 
     </session-factory>
