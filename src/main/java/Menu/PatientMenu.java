@@ -1,7 +1,12 @@
 package Menu;
 
+import Entity.Invoice;
 import Entity.Patient;
+import Entity.Service;
+import Repository.InvoiceRepository;
 import Repository.PatientRepository;
+
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +26,7 @@ public class PatientMenu {
         System.out.println("3. Delete Patient");
         System.out.println("4. View All Patients");
         System.out.println("5. Search Patient by ID");
+        System.out.println("6. Print patient bill");
         System.out.println("0. Back to Main Menu");
         System.out.print("Your choice: ");
         String choice = scanner.nextLine();
@@ -41,6 +47,9 @@ public class PatientMenu {
             case "5":
                 searchPatientById(scanner);
                 break;
+            case "6":
+                printPatientBill(scanner);
+                break;
             case "0":
                 back = true;
                 break;
@@ -49,6 +58,52 @@ public class PatientMenu {
         }
     }
 }
+    private static void printPatientBill(Scanner scanner) {
+        System.out.print("Enter patient ID: ");
+        int patientId = Integer.parseInt(scanner.nextLine());
+
+        Patient patient = patientRepo.getPatientById(patientId);
+        if (patient == null) {
+            System.out.println("Patient not found.");
+            return;
+        }
+
+        List<Invoice> invoices = new InvoiceRepository().findByPatientId(patientId);
+        if (invoices == null || invoices.isEmpty()) {
+            System.out.println("No invoices found for this patient.");
+            return;
+        }
+
+        System.out.print("Enter CSV file name (e.g., bill.csv): ");
+        String fileName = scanner.nextLine();
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write("Patient Name,Visit ID,Service Name,Service Price\n");
+
+            double grandTotal = 0;
+
+            for (Invoice invoice : invoices) {
+                for (Service service : invoice.getServices()) {
+                    writer.write(String.format("%s %s,%d,%s,%.2f\n",
+                            patient.getName(),
+                            patient.getSurname(),
+                            invoice.getVisit().getId(),
+                            service.getName(),
+                            service.getPrice()
+                    ));
+                }
+                writer.write(String.format(",,Invoice Total,%.2f\n", invoice.getTotalPrice()));
+                grandTotal += invoice.getTotalPrice();
+            }
+
+            writer.write(String.format(",,GRAND TOTAL,%.2f\n", grandTotal));
+            System.out.println("Bill exported successfully to: " + fileName);
+
+        } catch (Exception e) {
+            System.out.println("Error writing to CSV file.");
+            e.printStackTrace();
+        }
+    }
 
     private static void addPatient(Scanner scanner) {
         try {

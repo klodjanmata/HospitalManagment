@@ -90,62 +90,137 @@ public class InvoiceMenu {
         invoiceRepo.exportInvoiceToCSV(invoices, path);
     }
 
-    private static void createInvoice(Scanner scanner) {
-        try {
-            System.out.print("Enter patient ID: ");
-            int patientId = Integer.parseInt(scanner.nextLine());
-            Patient patient = patientRepo.getPatientById(patientId);
-            if (patient == null) {
-                System.out.println("Patient not found.");
-                return;
-            }
+//    private static void createInvoice(Scanner scanner) {
+//        try {
+//            System.out.print("Enter patient ID: ");
+//            int patientId = Integer.parseInt(scanner.nextLine());
+//            Patient patient = patientRepo.getPatientById(patientId);
+//            if (patient == null) {
+//                System.out.println("Patient not found.");
+//                return;
+//            }
+//
+//            System.out.print("Enter visit ID for the patient: ");
+//            int visitId = Integer.parseInt(scanner.nextLine());
+//            Visit visit = visitRepo.getVisitById(visitId);
+//            if (visit == null) {
+//                System.out.println("Visit not found.");
+//                return;
+//            }
+//
+//            System.out.println("Select services for this invoice:");
+//            List<Service> services = serviceRepo.findAll();
+//            if (services.isEmpty()) {
+//                System.out.println("No services available.");
+//                return;
+//            }
+//
+//            services.forEach(service -> System.out.println(service.getId() + ". " + service.getName() + " - " + service.getPrice() + " EUR"));
+//
+//            System.out.print("Enter service IDs (comma separated): ");
+//            String[] serviceIds = scanner.nextLine().split(",");
+//            List<Service> selectedServices = new ArrayList<>();
+//            double totalPrice = 0;
+//
+//            for (String id : serviceIds) {
+//                Service service = serviceRepo.getServiceById(Integer.parseInt(id.trim()));
+//                if (service != null) {
+//                    selectedServices.add(service);
+//                    totalPrice += service.getPrice();
+//                }
+//            }
+//
+//            Invoice invoice = new Invoice();
+//            invoice.setPatient(patient);
+//            invoice.setVisit(visit);
+//            invoice.setServices(selectedServices);
+//            invoice.setTotalPrice(totalPrice);
+//
+//
+//
+//            invoiceRepo.save(invoice);
+//
+//            System.out.println("Invoice created successfully with total: " + totalPrice + " EUR.");
+//        } catch (Exception e) {
+//            System.out.println("Error creating invoice.");
+//            e.printStackTrace();
+//        }
+//    }
+private static void createInvoice(Scanner scanner) {
+    try {
+        System.out.print("Enter patient ID: ");
+        int patientId = Integer.parseInt(scanner.nextLine());
+        Patient patient = patientRepo.getPatientById(patientId);
+        if (patient == null) {
+            System.out.println("Patient not found.");
+            return;
+        }
 
-            System.out.print("Enter visit ID for the patient: ");
-            int visitId = Integer.parseInt(scanner.nextLine());
-            Visit visit = visitRepo.getVisitById(visitId);
-            if (visit == null) {
-                System.out.println("Visit not found.");
-                return;
-            }
+        System.out.print("Enter visit ID for the patient: ");
+        int visitId = Integer.parseInt(scanner.nextLine());
+        Visit visit = visitRepo.getVisitById(visitId);
+        if (visit == null) {
+            System.out.println("Visit not found.");
+            return;
+        }
 
-            System.out.println("Select services for this invoice:");
-            List<Service> services = serviceRepo.findAll();
-            if (services.isEmpty()) {
-                System.out.println("No services available.");
-                return;
-            }
+        List<Service> allServices = serviceRepo.findAll();
+        if (allServices.isEmpty()) {
+            System.out.println("No services available.");
+            return;
+        }
 
-            services.forEach(service -> System.out.println(service.getId() + ". " + service.getName() + " - " + service.getPrice() + " EUR"));
+        System.out.println("\nAvailable Services:");
+        allServices.forEach(service ->
+                System.out.println(service.getId() + ". " + service.getName() + " - " + service.getPrice() + " EUR"));
 
-            System.out.print("Enter service IDs (comma separated): ");
-            String[] serviceIds = scanner.nextLine().split(",");
-            List<Service> selectedServices = new ArrayList<>();
-            double totalPrice = 0;
+        List<Service> selectedServices = new ArrayList<>();
+        double totalPrice = 0;
 
-            for (String id : serviceIds) {
-                Service service = serviceRepo.getServiceById(Integer.parseInt(id.trim()));
+        boolean adding = true;
+        while (adding) {
+            System.out.print("\nEnter the ID of a service the patient has done: ");
+            String idStr = scanner.nextLine();
+            try {
+                int serviceId = Integer.parseInt(idStr.trim());
+                Service service = serviceRepo.getServiceById(serviceId);
                 if (service != null) {
                     selectedServices.add(service);
                     totalPrice += service.getPrice();
+                    System.out.println("Added: " + service.getName() + " - " + service.getPrice() + " EUR");
+                } else {
+                    System.out.println("Service with ID " + serviceId + " not found.");
                 }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid ID format. Please enter a number.");
             }
 
-            Invoice invoice = new Invoice();
-            invoice.setPatient(patient);
-            invoice.setVisit(visit);
-            invoice.setServices(selectedServices);
-            invoice.setTotalPrice(totalPrice);
-
-
-
-            invoiceRepo.save(invoice);
-
-            System.out.println("Invoice created successfully with total: " + totalPrice + " EUR.");
-        } catch (Exception e) {
-            System.out.println("Error creating invoice.");
-            e.printStackTrace();
+            System.out.print("Do you want to add another service? (yes/no): ");
+            String response = scanner.nextLine().trim().toLowerCase();
+            adding = response.equals("yes");
         }
+
+        if (selectedServices.isEmpty()) {
+            System.out.println("No services selected. Invoice not created.");
+            return;
+        }
+
+        Invoice invoice = new Invoice();
+        invoice.setPatient(patient);
+        invoice.setVisit(visit);
+        invoice.setServices(selectedServices);
+        invoice.setTotalPrice(totalPrice);
+
+        invoiceRepo.save(invoice);
+        System.out.printf("\nInvoice created successfully! Total amount: %.2f EUR\n", totalPrice);
+
+    } catch (Exception e) {
+        System.out.println("Error creating invoice.");
+        e.printStackTrace();
     }
+}
+
+
 
     private static void viewAllInvoices() {
         List<Invoice> invoices = invoiceRepo.findAll();
