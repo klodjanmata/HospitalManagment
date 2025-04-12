@@ -9,6 +9,7 @@ import Repository.PatientRepository;
 import Repository.VisitRepository;
 import Repository.ServiceRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -44,6 +45,7 @@ public class InvoiceMenu {
                     break;
                 case  "4":
                     exportInvoiceToCSV(scanner);
+                    break;
                 case "0":
                     back = true;
                     break;
@@ -117,10 +119,13 @@ public class InvoiceMenu {
 
             System.out.print("Enter service IDs (comma separated): ");
             String[] serviceIds = scanner.nextLine().split(",");
+            List<Service> selectedServices = new ArrayList<>();
             double totalPrice = 0;
+
             for (String id : serviceIds) {
                 Service service = serviceRepo.getServiceById(Integer.parseInt(id.trim()));
                 if (service != null) {
+                    selectedServices.add(service);
                     totalPrice += service.getPrice();
                 }
             }
@@ -128,7 +133,11 @@ public class InvoiceMenu {
             Invoice invoice = new Invoice();
             invoice.setPatient(patient);
             invoice.setVisit(visit);
+            invoice.setServices(selectedServices);
             invoice.setTotalPrice(totalPrice);
+
+
+
             invoiceRepo.save(invoice);
 
             System.out.println("Invoice created successfully with total: " + totalPrice + " EUR.");

@@ -1,6 +1,7 @@
 package Repository;
 
 import Entity.Invoice;
+import Entity.Service;
 import Entity.Visit;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -67,20 +68,33 @@ public class InvoiceRepository {
 
     public void exportInvoiceToCSV(List<Invoice> invoices, String filePath) {
         try (FileWriter writer = new FileWriter(filePath)) {
-            writer.write("PatientID,VisitID,ServicesId,TotalPrice\n");
+            // CSV header
+            writer.write("InvoiceID,Patient Name,VisitID,Services,Total Price\n");
 
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            for (Invoice invoice : invoices) {
+                StringBuilder servicesLine = new StringBuilder();
 
-            for (Invoice  invoice : invoices) {
+                for (Service service : invoice.getServices()) {
+                    servicesLine.append(service.getName())
+                            .append(" - ")
+                            .append(service.getPrice())
+                            .append(" EUR; ");
+                }
+
+                // Remove last semicolon
+                if (servicesLine.length() > 0) {
+                    servicesLine.setLength(servicesLine.length() - 2);
+                }
+
                 String line = String.format(
-                        "%d,%s,%s,%s,%s\n",
+                        "%d,%s,%d,\"%s\",%.2f\n",
                         invoice.getId(),
                         invoice.getPatient().getName(),
                         invoice.getVisit().getId(),
-                        invoice.getServices(),
+                        invoice.getServices().toString(),
                         invoice.getTotalPrice()
-
                 );
+
                 writer.write(line);
             }
 
@@ -89,6 +103,7 @@ public class InvoiceRepository {
             e.printStackTrace();
         }
     }
+
 
     public List<Invoice> findByPatientId(int patientId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

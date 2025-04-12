@@ -25,13 +25,14 @@ public class Invoice {
     @JoinColumn(name = "visit_id")
     private Visit visit;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "invoice_services",
             joinColumns = @JoinColumn(name = "invoice_id"),
             inverseJoinColumns = @JoinColumn(name = "service_id")
     )
     private List<Service> services = new ArrayList<>();
+
 
     @Column(name = "total_price")
     private double totalPrice;
@@ -43,6 +44,8 @@ public class Invoice {
         }
         this.totalPrice = sum;
     }
+
+
 
 
     @Override
