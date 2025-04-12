@@ -17,13 +17,17 @@
         <mapping class="Entity.Visit"/>
         <mapping class="Entity.Patient"/>
         <mapping class="Entity.Specialization"/>
+        <mapping class="Entity.Service"/>
+        <mapping class="Entity.Invoice"/>
         <mapping class="Menu.DoctorMenu"/>
         <mapping class="Menu.PatientMenu"/>
         <mapping class="Menu.VisitMenu"/>
+        <mapping class="Menu.ServiceMenu"/>
         <mapping class="Repository.DoctorRepository"/>
         <mapping class="Repository.PatientRepository"/>
         <mapping class="Repository.VisitRepository"/>
-
+        <mapping class="Repository.ServiceRepository"/>
+        <mapping class="Repository.InvoiceRepository"/>
 
     </session-factory>
 </hibernate-configuration>
