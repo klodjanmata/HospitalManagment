@@ -5,58 +5,52 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import util.HibernateUtil;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
-
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 public class ServiceRepository {
 
     public void save(Service service) {
+        Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction t = session.beginTransaction();
-            session.save(service);
-            t.commit();
+            transaction = session.beginTransaction();
+            session.persist(service);
+            transaction.commit();
         } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         }
     }
 
-    public void update(Service service) {
+    public List<Service> findByVisitId(int visitId) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction t = session.beginTransaction();
-            session.merge(service);
-            t.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void delete(Service service) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Transaction t = session.beginTransaction();
-            session.remove(service);
-            t.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Service getServiceById(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.find(Service.class, id);
+            return session.createQuery("FROM Service WHERE visit.id = :visitId", Service.class)
+                    .setParameter("visitId", visitId)
+                    .getResultList();
         }
     }
 
     public List<Service> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<Service> cq = cb.createQuery(Service.class);
-            Root<Service> root = cq.from(Service.class);
-            cq.select(root);
+            return session.createQuery("FROM Service", Service.class).list();
+        }
+    }
 
-            return session.createQuery(cq).getResultList();
+    public void exportServicesToCSV(List<Service> services, String path) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(path))) {
+            writer.println("Service ID,Visit ID,Service Name,Price");
+
+            for (Service service : services) {
+                writer.println(service.getId() + "," + service.getVisit().getId() + "," + service.getAnalysisName() + "," + service.getPrice());
+            }
+
+            System.out.println("Services exported successfully to " + path);
+
+        } catch (IOException e) {
+            System.out.println("Error exporting services to CSV.");
+            e.printStackTrace();
         }
     }
 }

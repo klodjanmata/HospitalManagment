@@ -1,11 +1,14 @@
 package util;
 
-import Entity.*;
+import Entity.Doctor;
+import Entity.Patient;
+import Entity.Visit;
 import Menu.DoctorMenu;
 import Menu.PatientMenu;
-import Menu.ServiceMenu;
 import Menu.VisitMenu;
-import Repository.*;
+import Repository.DoctorRepository;
+import Repository.PatientRepository;
+import Repository.VisitRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -25,11 +28,6 @@ public class HibernateUtil {
                     .addAnnotatedClass(DoctorRepository.class)
                     .addAnnotatedClass(VisitRepository.class)
                     .addAnnotatedClass(PatientRepository.class)
-                    .addAnnotatedClass(Service.class)
-                    .addAnnotatedClass(Invoice.class)
-                    .addAnnotatedClass(ServiceRepository.class)
-                    .addAnnotatedClass(ServiceMenu.class)
-                    .addAnnotatedClass(InvoiceRepository.class)
 
                     .buildSessionFactory();
         }catch(Exception e){
