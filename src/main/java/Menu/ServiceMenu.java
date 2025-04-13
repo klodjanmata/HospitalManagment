@@ -45,19 +45,15 @@ public class ServiceMenu {
     private static void addService(Scanner scanner) {
         try {
             Service service = new Service();
-            System.out.println("Enter the number of services you have done");
-            int serviceCount = Integer.parseInt(scanner.nextLine());
 
-            for (int i = 0; i < serviceCount; i++) {
-                System.out.print("Enter service name: ");
-                String name = scanner.nextLine();
-                service.setName(name);
+            System.out.print("Enter service name: ");
+            String name = scanner.nextLine();
+            service.setName(name);
+
 
                 System.out.print("Enter service price: ");
                 double price = Double.parseDouble(scanner.nextLine());
                 service.setPrice(price);
-
-            }
 
 
             serviceRepo.save(service);
